@@ -159,13 +159,14 @@
       <div class="description" id="audioDescription"></div>
 
       <audio
-        id="audioPlayer"
-        controls
-        playsinline
-        webkit-playsinline
-        preload="metadata">
-        你的浏览器暂时无法播放这段音频。
-      </audio>
+  id="audioPlayer"
+  controls
+  playsinline
+  webkit-playsinline
+  preload="none"
+  style="display:block;width:100%;max-width:100%;">
+  你的浏览器暂时无法播放这段音频。
+</audio>
     </section>
 
     <a class="back" href=" ">
@@ -237,7 +238,8 @@
       document.getElementById("audioDescription").textContent =
         audio.description;
 
-      player.src = "./" + audio.file;
+      player.src = "https://cudbcosn.github.io/jimin-audio/" + audio.file;
+player.load();
 
       player.addEventListener("error", function () {
         errorMessage.hidden = false;
