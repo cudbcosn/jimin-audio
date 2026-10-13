@@ -163,9 +163,8 @@
   controls
   playsinline
   webkit-playsinline
-  preload="metadata"
-  style="width:100%;max-width:100%;">
-  <source id="audioSource" src="" type="audio/mpeg">
+  preload="none"
+  style="display:block;width:100%;max-width:100%;">
   你的浏览器暂时无法播放这段音频。
 </audio>
     </section>
@@ -216,6 +215,11 @@
 
   const errorMessage = document.getElementById("errorMessage");
   const player = document.getElementById("audioPlayer");
+   window.addEventListener("error", function (event) {
+  errorMessage.hidden = false;
+  errorMessage.textContent =
+    "页面脚本出现错误：" + event.message;
+});
 
   if (!audio) {
     document.getElementById("audioNumber").textContent =
