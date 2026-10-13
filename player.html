@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>JIMIN AUDIO ARCHIVE</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f3ef;
+      color: #292929;
+      font-family: -apple-system, BlinkMacSystemFont,
+                   "Helvetica Neue", "PingFang SC",
+                   "Microsoft YaHei", sans-serif;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 32px 22px 60px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #c9c5bf;
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .cover {
+      padding: 65px 0 48px;
+    }
+
+    .number {
+      color: #888178;
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 10vw, 60px);
+      font-weight: normal;
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      color: #77716a;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .audio-card {
+      margin-top: 20px;
+      padding: 25px 20px;
+      background: #fff;
+      border: 1px solid #e7e3dc;
+    }
+
+    .audio-number {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #928a80;
+    }
+
+    h2 {
+      margin: 18px 0 10px;
+      font-size: 23px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .date {
+      color: #89837c;
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+
+    .description {
+      color: #66615b;
+      font-size: 14px;
+      line-height: 1.9;
+      white-space: pre-line;
+      margin-bottom: 25px;
+    }
+
+    audio {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 28px;
+      color: #49443e;
+      font-size: 13px;
+      text-decoration: none;
+      border-bottom: 1px solid #a9a39a;
+      padding-bottom: 5px;
+    }
+
+    .footer {
+      margin-top: 65px;
+      padding-top: 20px;
+      border-top: 1px solid #c9c5bf;
+      color: #999187;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .error {
+      margin-top: 25px;
+      color: #a13e3e;
+      line-height: 1.8;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="top">
+      <span>JIMIN ARCHIVE</span>
+      <span>VOICE COLLECTION</span>
+    </div>
+
+    <header class="cover">
+      <div class="number">SOUND ARCHIVE / 001</div>
+      <h1>A Voice<br>To Remember.</h1>
+      <div class="subtitle">
+        收集那些值得被记住的声音。<br>
+        Some voices deserve to be kept.
+      </div>
+    </header>
+
+    <section class="audio-card" id="audioCard">
+      <div class="audio-number" id="audioNumber">
+        LOADING...
+      </div>
+
+      <h2 id="audioTitle">正在打开声音档案</h2>
+
+      <div class="date" id="audioDate"></div>
+
+      <div class="description" id="audioDescription"></div>
+
+      <audio
+        id="audioPlayer"
+        controls
+        playsinline
+        webkit-playsinline
+        preload="metadata">
+        你的浏览器暂时无法播放这段音频。
+      </audio>
+    </section>
+
+    <a class="back" href=" ">
+      ← 返回声音收藏馆
+    </a >
+
+    <footer class="footer">
+      JIMIN AUDIO ARCHIVE<br>
+      A little voice, a lasting memory.
+    </footer>
+
+    <div class="error" id="errorMessage" hidden></div>
+
+  </main>
+
+  <script>
+    const AUDIO_LIST = {
+      "001": {
+        title: "智旻的初次问候",
+        date: "2013",
+        file: "jimin.mp3",
+        description: "一段值得珍藏的声音。"
+      },
+
+      "002": {
+        title: "智旻对阿米说谢谢",
+        date: "待补充",
+        file: "audio002.mp3",
+        description: "在这里写下这段声音背后的故事。"
+      },
+
+      "003": {
+        title: "智旻的生日祝福",
+        date: "待补充",
+        file: "audio003.mp3",
+        description: "把想要记住的瞬间，留在声音里。"
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const audio = AUDIO_LIST[id];
+
+    const errorMessage = document.getElementById("errorMessage");
+    const player = document.getElementById("audioPlayer");
+
+    if (!audio) {
+      document.getElementById("audioNumber").textContent =
+        "ARCHIVE NOT FOUND";
+
+      document.getElementById("audioTitle").textContent =
+        "暂时没有找到这段声音";
+
+      errorMessage.hidden = false;
+      errorMessage.textContent =
+        "请检查分享链接中的编号，或返回收藏馆选择其他音频。";
+    } else {
+      document.title = audio.title + " | JIMIN AUDIO ARCHIVE";
+
+      document.getElementById("audioNumber").textContent =
+        "SOUND FILE / " + id;
+
+      document.getElementById("audioTitle").textContent =
+        audio.title;
+
+      document.getElementById("audioDate").textContent =
+        audio.date;
+
+      document.getElementById("audioDescription").textContent =
+        audio.description;
+
+      player.src = "./" + audio.file;
+
+      player.addEventListener("error", function () {
+        errorMessage.hidden = false;
+        errorMessage.textContent =
+          "音频暂时无法加载。请检查文件名是否正确，以及音频是否已上传。";
+      });
+    }
+  </script>
+</body>
+</html>
