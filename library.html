@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>JIMIN AUDIO ARCHIVE | 声音收藏馆</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f3ef;
+      color: #292929;
+      font-family: -apple-system, BlinkMacSystemFont,
+                   "Helvetica Neue", "PingFang SC",
+                   "Microsoft YaHei", sans-serif;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 30px 22px 60px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid #c9c5bf;
+      padding-bottom: 18px;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .hero {
+      padding: 75px 0 55px;
+    }
+
+    .eyebrow {
+      color: #888178;
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      margin: 20px 0 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: normal;
+      font-size: clamp(42px, 11vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -3px;
+    }
+
+    .intro {
+      max-width: 400px;
+      color: #77716a;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #c9c5bf;
+      padding-bottom: 14px;
+      margin-bottom: 5px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .section-title span {
+      color: #928a80;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .audio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 25px 0;
+      border-bottom: 1px solid #ddd8d0;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .item-number {
+      min-width: 42px;
+      padding-top: 4px;
+      color: #928a80;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+    }
+
+    .item-content {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .item-date {
+      margin-top: 7px;
+      color: #89837c;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .arrow {
+      color: #89837c;
+      padding-top: 5px;
+      font-size: 17px;
+    }
+
+    .audio-item:active {
+      opacity: 0.6;
+    }
+
+    .footer {
+      margin-top: 65px;
+      padding-top: 20px;
+      border-top: 1px solid #c9c5bf;
+      color: #999187;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="top">
+      <span>JIMIN ARCHIVE</span>
+      <span>EST. 2026</span>
+    </div>
+
+    <header class="hero">
+      <div class="eyebrow">A COLLECTION OF VOICES</div>
+
+      <h1>JIMIN<br>AUDIO<br>ARCHIVE.</h1>
+
+      <div class="intro">
+        有些瞬间会随着时间远去，<br>
+        但声音可以把记忆留下。<br><br>
+        这里收藏着与朴智旻有关的声音，<br>
+        也收藏着那些想要反复回听的时刻。
+      </div>
+    </header>
+
+    <section>
+      <div class="section-title">
+        <h2>声音档案</h2>
+        <span id="totalCount">03 RECORDS</span>
+      </div>
+
+      <div id="audioList"></div>
+    </section>
+
+    <footer class="footer">
+      For the voice we want to remember.<br>
+      JIMIN AUDIO ARCHIVE
+    </footer>
+
+  </main>
+
+  <script>
+    const AUDIO_LIST = [
+      {
+        id: "001",
+        title: "智旻的初次问候",
+        date: "2013"
+      },
+      {
+        id: "002",
+        title: "智旻对阿米说谢谢",
+        date: "待补充"
+      },
+      {
+        id: "003",
+        title: "智旻的生日祝福",
+        date: "待补充"
+      }
+    ];
+
+    const list = document.getElementById("audioList");
+
+    document.getElementById("totalCount").textContent =
+      String(AUDIO_LIST.length).padStart(2, "0") + " RECORDS";
+
+    AUDIO_LIST.forEach(function (audio) {
+      const link = document.createElement("a");
+
+      link.className = "audio-item";
+      link.href = "./player.html?id=" + encodeURIComponent(audio.id);
+
+      const number = document.createElement("div");
+      number.className = "item-number";
+      number.textContent = audio.id;
+
+      const content = document.createElement("div");
+      content.className = "item-content";
+
+      const title = document.createElement("div");
+      title.className = "item-title";
+      title.textContent = audio.title;
+
+      const date = document.createElement("div");
+      date.className = "item-date";
+      date.textContent = audio.date;
+
+      content.appendChild(title);
+      content.appendChild(date);
+
+      const arrow = document.createElement("div");
+      arrow.className = "arrow";
+      arrow.textContent = "↗";
+
+      link.appendChild(number);
+      link.appendChild(content);
+      link.appendChild(arrow);
+
+      list.appendChild(link);
+    });
+  </script>
+</body>
+</html>
