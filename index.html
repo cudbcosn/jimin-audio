@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jimin Audio</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f7f5;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+.player {
+  width: 85%;
+  max-width: 420px;
+  padding: 30px 24px;
+  background: white;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 5px 24px rgba(0,0,0,0.06);
+}
+h1 {
+  font-size: 22px;
+  font-weight: 500;
+}
+p {
+  font-size: 14px;
+  color: #888;
+}
+audio {
+  width: 100%;
+  margin-top: 20px;
+}
+  </style>
+</head>
+<body>
+  <div class="player">
+    <h1>Jimin Audio</h1>
+    <p>一段值得珍藏的声音</p >
+<audio controls preload="metadata">
+  <source src="./jimin.mp3" type="audio/mpeg">
+  你的浏览器不支持音频播放。
+</audio>
+  </div>
+</body>
+</html>
