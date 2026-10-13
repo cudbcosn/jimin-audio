@@ -183,78 +183,77 @@
 
   </main>
 
-  <script>
-    const AUDIO_LIST = {
-      "001": {
-        title: "智旻自创rap",
-        date: "2014",
-        file: "jimin.mp3",
-        description: "我的名字是智旻，
+ <script>
+  const AUDIO_LIST = {
+    "001": {
+      title: "智旻自创rap",
+      date: "2014",
+      file: "jimin.mp3",
+      description: `我的名字是智旻，
 在防弹少年团负责外貌、vocal和rap
 如果你被我的魅力迷住，觉得我很可爱的话，那你就太天真了
-在舞台上，我可是博士"
-      },
+在舞台上，我可是博士`
+    },
 
-      "002": {
-        title: "智旻对阿米说谢谢",
-        date: "待补充",
-        file: "audio002.mp3",
-        description: "在这里写下这段声音背后的故事。"
-      },
+    "002": {
+      title: "智旻对阿米说谢谢",
+      date: "待补充",
+      file: "audio002.mp3",
+      description: "在这里写下这段声音背后的故事。"
+    },
 
-      "003": {
-        title: "智旻的生日祝福",
-        date: "待补充",
-        file: "audio003.mp3",
-        description: "把想要记住的瞬间，留在声音里。"
-      }
-    };
+    "003": {
+      title: "智旻的生日祝福",
+      date: "待补充",
+      file: "audio003.mp3",
+      description: "把想要记住的瞬间，留在声音里。"
+    }
+  };
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const audio = AUDIO_LIST[id];
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const audio = AUDIO_LIST[id];
 
-    const errorMessage = document.getElementById("errorMessage");
-    const player = document.getElementById("audioPlayer");
+  const errorMessage = document.getElementById("errorMessage");
+  const player = document.getElementById("audioPlayer");
 
-    if (!audio) {
-      document.getElementById("audioNumber").textContent =
-        "ARCHIVE NOT FOUND";
+  if (!audio) {
+    document.getElementById("audioNumber").textContent =
+      "ARCHIVE NOT FOUND";
 
-      document.getElementById("audioTitle").textContent =
-        "暂时没有找到这段声音";
+    document.getElementById("audioTitle").textContent =
+      "暂时没有找到这段声音";
 
+    errorMessage.hidden = false;
+    errorMessage.textContent =
+      "请检查分享链接中的编号，或返回收藏馆选择其他音频。";
+
+  } else {
+    document.title = audio.title + " | JIMIN AUDIO ARCHIVE";
+
+    document.getElementById("audioNumber").textContent =
+      "SOUND FILE / " + id;
+
+    document.getElementById("audioTitle").textContent =
+      audio.title;
+
+    document.getElementById("audioDate").textContent =
+      audio.date;
+
+    document.getElementById("audioDescription").textContent =
+      audio.description;
+
+    player.addEventListener("error", function () {
       errorMessage.hidden = false;
       errorMessage.textContent =
-        "请检查分享链接中的编号，或返回收藏馆选择其他音频。";
-    } else {
-      document.title = audio.title + " | JIMIN AUDIO ARCHIVE";
+        "音频加载失败，请检查文件格式或网络连接。";
+    });
 
-      document.getElementById("audioNumber").textContent =
-        "SOUND FILE / " + id;
+    player.src =
+      "https://cudbcosn.github.io/jimin-audio/" + audio.file;
 
-      document.getElementById("audioTitle").textContent =
-        audio.title;
-
-      document.getElementById("audioDate").textContent =
-        audio.date;
-
-      document.getElementById("audioDescription").textContent =
-        audio.description;
-
-      const audioSource = document.getElementById("audioSource");
-
-player.addEventListener("error", function () {
-  errorMessage.hidden = false;
-  errorMessage.textContent =
-    "音频加载失败，请检查音频文件格式或网络连接。";
-});
-
-audioSource.src =
-  "https://cudbcosn.github.io/jimin-audio/" + audio.file;
-
-player.load();
-    }
-  </script>
+    player.load();
+  }
+</script>
 </body>
 </html>
