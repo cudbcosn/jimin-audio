@@ -163,8 +163,9 @@
   controls
   playsinline
   webkit-playsinline
-  preload="none"
-  style="display:block;width:100%;max-width:100%;">
+  preload="metadata"
+  style="width:100%;max-width:100%;">
+  <source id="audioSource" src="" type="audio/mpeg">
   你的浏览器暂时无法播放这段音频。
 </audio>
     </section>
@@ -238,13 +239,17 @@
       document.getElementById("audioDescription").textContent =
         audio.description;
 
-      player.addEventListener("error", function () {
+      const audioSource = document.getElementById("audioSource");
+
+player.addEventListener("error", function () {
   errorMessage.hidden = false;
   errorMessage.textContent =
-    "音频加载失败。请检查网络，或重新打开页面。";
+    "音频加载失败，请检查音频文件格式或网络连接。";
 });
 
-player.src = new URL(audio.file, window.location.href).href;
+audioSource.src =
+  "https://cudbcosn.github.io/jimin-audio/" + audio.file;
+
 player.load();
     }
   </script>
