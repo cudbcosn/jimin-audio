@@ -169,7 +169,7 @@
 </audio>
     </section>
 
-    <a class="back" href=" ">
+    <a class="back" href="./library.html">
       ← 返回声音收藏馆
     </a >
 
@@ -238,14 +238,14 @@
       document.getElementById("audioDescription").textContent =
         audio.description;
 
-      player.src = "https://cudbcosn.github.io/jimin-audio/" + audio.file;
-player.load();
-
       player.addEventListener("error", function () {
-        errorMessage.hidden = false;
-        errorMessage.textContent =
-          "音频暂时无法加载。请检查文件名是否正确，以及音频是否已上传。";
-      });
+  errorMessage.hidden = false;
+  errorMessage.textContent =
+    "音频加载失败。请检查网络，或重新打开页面。";
+});
+
+player.src = new URL(audio.file, window.location.href).href;
+player.load();
     }
   </script>
 </body>
